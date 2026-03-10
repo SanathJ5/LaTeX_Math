@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/mathquill@0.10.1/build/mathquill.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/mathquill@0.10.1/build/mathquill.js"></script>
+
+<link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Natural Math --> Python/MATLAB/LaTeX</h2>
+
+<p>Enter the math expressions in the natural way below</p>
+
+<div id="math-input"></div>
+
+
+
+<div class="rules-box">
+<ul>
+<li>DESMOS INSPIRED</li>
+<li>\sqrt for square root</li>
+<li>\pi for pi</li>
+<li>Use parentheses for arguments</li>
+<li>sin x --> WRONG, sin(x) --> RIGHT. Same for all trignometric and logarithmic functions</li>
+<li>Currently cosec, sec and cot are not supported</li>
+<li>sin^2(x) --> WRONG, (sin(x))^2 --> RIGHT. Same for all trignometric functions</li>
+<li>Single-letter mode enables auto multiplication</li>
+<li>If possible use Multi Letter Variable mode for better stability</li>
+</ul>
+</div>
+
+
+<textarea id="latexbox" readonly></textarea>
+
+<div class="buttons">
+<br>
+<button onclick="runScript()">Run</button>
+<button onclick="copyLatex()">Copy Latex</button>
+<button onclick="copyOutput()">Copy Output</button>
+
+<div class="options">
+
+
+
+<label>
+<input type="radio" name="lang" value="PYTHON" checked>
+Python
+</label>
+
+<label>
+<input type="radio" name="lang" value="MATLAB">
+MATLAB
+</label>
+
+<label>
+<input type="radio" name="lang" value="JUSTMATH">
+Standard Math
+</label>
+
+<br>
+
+<label>
+<input type="radio" name="varmode" value="single">
+Single Letter Variable (AUTO MULTIPLICATION)
+</label>
+
+<label>
+<input type="radio" name="varmode" value="double" checked>
+Multi Letter Variable (NO AUTO MULTIPLICATION)
+</label>
+
+</div>
+
+</div>
+
+
+
+<h3>Output</h3>
+
+<textarea id="output"></textarea>
+
+</div>
+
+<a class="history-btn" href="/history">History</a>
+
+
+
+<script>
+
+var MQ = MathQuill.getInterface(2)
+
+var mathField = MQ.MathField(
+document.getElementById('math-input'),
+{
+handlers:{
+edit:function(){
+
+var latex = mathField.latex()
+
+document.getElementById("latexbox").value = latex
+
+}
+}
+}
+)
+
+
+
+function runScript(){
+
+let lang = document.querySelector('input[name="lang"]:checked').value
+let varmode = document.querySelector('input[name="varmode"]:checked').value
+let single_var = (varmode === "single")
+
+fetch("/run",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+latex:document.getElementById("latexbox").value,
+language:lang,
+single_var:single_var
+})
+
+})
+
+.then(response=>response.json())
+
+.then(data=>{
+
+document.getElementById("output").value = data.output
+
+})
+
+}
+
+
+
+function copyLatex(){
+
+navigator.clipboard.writeText(
+document.getElementById("latexbox").value
+)
+
+}
+
+
+function copyOutput(){
+
+navigator.clipboard.writeText(
+document.getElementById("output").value
+)
+
+}
+
+
+
+document.addEventListener("keydown",function(e){
+
+if(e.key==="Enter"){
+
+runScript()
+
+}
+
+})
+
+</script>
+
+</body>
+</html>
