@@ -198,7 +198,7 @@ def transform_latex(s: str,
             out = re.sub(r"\\c\.\*o\.\*s\.\*|\\c\.\*o\.\*s|\\c\*o\*s\*",func_list[3], out)
             out = re.sub(r"\\t\.\*a\.\*n\.\*|\\t\.\*a\.\*n|\\t\*a\*n\*",func_list[4], out)
             out = re.sub(r"e\^|e\.\^|e\*\*|e\.\*",func_list[5], out)
-            out = re.sub(r"\\p\.\*i",func_list[6], out)
+            out = re.sub(r"\\p\.\*i|\\p\*i",func_list[6], out)
             out = re.sub(r"\\a\.\*r\.\*c\.\*s\.\*i\.\*n\.\*|\\a\.\*r\.\*c\.\*s\.\*i\.\*n|\\a\*r\*c\*s\*i\*n\*",func_list[7], out)
             out = re.sub(r"\\a\.\*r\.\*c\.\*c\.\*o\.\*s\.\*|\\a\.\*r\.\*c\.\*c\.\*o\.\*s|\\a\*r\*c\*c\*o\*s\*",func_list[8], out)
             out = re.sub(r"\\a\.\*r\.\*c\.\*t\.\*a\.\*n\.\*|\\a\.\*r\.\*c\.\*t\.\*a\.\*n|\\a\*r\*c\*t\*a\*n\*",func_list[9], out)
