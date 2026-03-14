@@ -1,3 +1,4 @@
+TRY IT NOW - https://natural-math-linearize.up.railway.app/
 ![image alt](https://github.com/SanathJ5/LaTeX_Math/blob/07894a82d339e82dc1e1c8adfec17283f51afab6/images/sdf.png)
 A tool to write equations in natural way (Textbook type) and then get it converted to expression in MATLAB/Python
 . Useful when you have a very big equations where typing it on a single line is not feasible.
