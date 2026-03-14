@@ -2,4 +2,4 @@
 A tool to write equations in natural way (Textbook type) and then get it converted to expression in MATLAB/Python
 . Useful when you have a very big equations where typing it on a single line is not feasible.
 Uses MathQuill to convert Natural math input to LaTeX and a parser to convert it to MATLAB/Python.
-Options for auto multiplication and multi letter variables is also available.
+Options for auto multiplication and multi letter variables is also available. Inspired by Desmos input style and this method is similar to Desmos input style
